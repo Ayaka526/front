@@ -1,32 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-const App = () => {
-    const profiles = [
-        {name: "Taro", age: 10},
-        {name: "Hanako",age: 5},
-        {name: "NoName",age: 3}
-    ]
-    return (
-        <div>
-            {
-                profiles.map((profile, index) => {
-                    return <User name={profile.name} age={profile.age} key={index}/>
-                })
-            }
-        </div>
-    )
-}
+import React, {Component} from 'react';
 
 
-const User = (props) => {
-    return <div>Hi, I am {props.name}, and {props.age} years old!</div>
-}
+//Appでcounterコンポーネントを呼ぶ
+const App = () => (<Counter></Counter>)
 
-//nameに対する型の定義はString,ageはnumber
-User.propTypes ={
-    name : PropTypes.string,
-    age : PropTypes.number.isRequired
+//コンポーネントComponentを継承することで使うことができる
+class Counter extends Component {
+    constructor(props) {
+        super(props)
+        //値を設定する
+        this.state = {count: 1}
+    }
+
+    //handlePlusButtonメソッド
+    handlePlusButton = () => {
+        //現在のカウント+1を新しいカウントとして更新する
+        this.setState({count: this.state.count + 1})
+    }
+    handleMinusButton = () => {
+        this.setState({count: this.state.count - 1})
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <div>count: {this.state.count} </div>
+                <button onClick={this.handlePlusButton}>+1</button>
+                <button onClick={this.handleMinusButton}> -1</button>
+
+            </React.Fragment>
+        )
+
+    }
 }
 
 export default App;
